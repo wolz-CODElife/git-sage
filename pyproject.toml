@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "git-sage"
+version = "0.1.0"
+description = "Local AI code reviewer for your git workflow. Powered by Ollama"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Joel Adewole", email = "joeladewole3@gmail.com" }]
+
+dependencies = [
+    "click>=8.1",
+    "httpx>=0.27",
+    "rich>=13.0",
+]
+
+[project.scripts]
+git-sage = "git_sage.cli:main"
+
+[tool.setuptools]
+packages = ["git_sage"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
