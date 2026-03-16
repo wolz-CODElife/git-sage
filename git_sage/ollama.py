@@ -10,7 +10,8 @@ Reference: https://github.com/ollama/ollama/blob/main/docs/api.md
 """
 
 import json
-from typing import Iterator
+import sys
+from typing import Iterator, Optional
 
 import httpx
 
@@ -45,11 +46,30 @@ def list_models(host: str = DEFAULT_HOST) -> list[str]:
         raise OllamaError(f"Cannot reach Ollama at {host}: {exc}") from exc
 
 
+def _select_fallback_model(requested_model: str, available_models: list[str]) -> Optional[str]:
+    """
+    Select a fallback model from available models.
+    
+    Strategy:
+    1. If requested_model is in available_models, return None (no fallback needed)
+    2. Otherwise, return the first available model
+    3. If no models available, return None
+    """
+    if requested_model in available_models:
+        return None
+    
+    if not available_models:
+        return None
+    
+    return available_models[0]
+
+
 def chat(
     messages: list[dict],
     model: str = DEFAULT_MODEL,
     host: str = DEFAULT_HOST,
     stream: bool = False,
+    fallback: bool = True,
 ) -> str | Iterator[str]:
     """
     Send a chat request to Ollama.
@@ -65,11 +85,32 @@ def chat(
     stream:
         If True, yield text chunks as they arrive (for live output).
         If False (default), return the complete response string.
+    fallback:
+        If True (default), fall back to another available model if requested
+        model is not available locally. If False, raise an error immediately.
 
     Returns
     -------
     str (stream=False) or Iterator[str] (stream=True)
     """
+    # Check if we need to fall back to another model
+    if fallback:
+        try:
+            available_models = list_models(host)
+            fallback_model = _select_fallback_model(model, available_models)
+            
+            if fallback_model:
+                print(
+                    f"Warning: Model '{model}' not available. "
+                    f"Using fallback model '{fallback_model}' instead.",
+                    file=sys.stderr
+                )
+                model = fallback_model
+        except OllamaError:
+            # If we can't list models, just proceed with the original model
+            # and let the API call fail with a clear error message
+            pass
+    
     url = f"{host}/api/chat"
     payload = {
         "model": model,
