@@ -1,0 +1,233 @@
+.hero {
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(74,222,128,0.08) 0%, transparent 70%);
+  border-bottom: 1px solid rgba(74, 222, 128, 0.1);
+}
+
+.heroInner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-family: var(--ifm-font-family-monospace);
+  color: #4ade80;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.03em;
+}
+
+.heroTitle {
+  font-size: 5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #4ade80;
+  margin: 0 0 1rem;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--ifm-color-content-secondary);
+  margin-bottom: 2.5rem;
+}
+
+.heroTerminal {
+  background: #0d1117;
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: left;
+  margin: 0 auto 2.5rem;
+  max-width: 540px;
+  box-shadow: 0 0 60px rgba(74, 222, 128, 0.06);
+}
+
+.terminalBar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: #161b22;
+  border-bottom: 1px solid rgba(74, 222, 128, 0.1);
+}
+
+.terminalBar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+}
+
+.terminalTitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  margin-left: auto;
+  font-family: var(--ifm-font-family-monospace);
+  background: none;
+}
+
+.terminalBody {
+  margin: 0;
+  padding: 1.2rem 1.4rem;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #e6edf3;
+  font-family: var(--ifm-font-family-monospace);
+  background: transparent;
+  border: none;
+}
+
+.heroCtas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaPrimary {
+  display: inline-block;
+  padding: 0.7rem 1.6rem;
+  background: #4ade80;
+  color: #0a0f0a !important;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  transition: background 0.15s;
+}
+
+.ctaPrimary:hover {
+  background: #22c55e;
+}
+
+.ctaSecondary {
+  display: inline-block;
+  padding: 0.7rem 1.6rem;
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  color: #4ade80 !important;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  transition: border-color 0.15s;
+}
+
+.ctaSecondary:hover {
+  border-color: #4ade80;
+}
+
+/* Features */
+.features {
+  padding: 5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.featureCard {
+  padding: 1.8rem;
+  border: 1px solid rgba(74, 222, 128, 0.1);
+  border-radius: 12px;
+  background: rgba(74, 222, 128, 0.02);
+  transition: border-color 0.2s;
+}
+
+.featureCard:hover {
+  border-color: rgba(74, 222, 128, 0.25);
+}
+
+.featureIcon {
+  margin-bottom: 0.8rem;
+  color: var(--ifm-color-primary);
+}
+
+.featureTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.featureDesc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ifm-color-content-secondary);
+  margin: 0;
+}
+
+/* Quickstart */
+.quickstart {
+  padding: 5rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  border-top: 1px solid rgba(74, 222, 128, 0.08);
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 2.5rem;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+  margin-bottom: 2.5rem;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(74, 222, 128, 0.12);
+  border-radius: 10px;
+  background: rgba(74, 222, 128, 0.02);
+}
+
+.stepNumber {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stepCmd {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.88rem;
+  color: #4ade80;
+  background: none;
+}
+
+.stepLabel {
+  font-size: 0.82rem;
+  color: var(--ifm-color-content-secondary);
+}

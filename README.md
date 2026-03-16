@@ -1,6 +1,6 @@
-# git-sage 🌿
+# git-sage
 
-> Local AI code review — right before you push. No cloud. No subscriptions. No data leaving your machine.
+> Local AI code review right before you push. No cloud. No subscriptions. No data leaving your machine.
 
 `git-sage` hooks into your git workflow and runs a code review using a locally hosted LLM via [Ollama](https://ollama.com). When you run `git push`, the tool intercepts it, sends your staged diff to the model, and either approves the push or asks you to revise.
 

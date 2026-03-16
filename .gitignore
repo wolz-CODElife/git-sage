@@ -14,7 +14,7 @@ build/
 
 # Test artifacts
 .pytest_cache/
-test_bad_code.py
+
 
 # OS
 .DS_Store

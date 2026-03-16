@@ -39,6 +39,8 @@ VERDICT
 Rules:
 - Be direct. No preamble or closing remarks outside the structure above.
 - Focus on correctness, security, and maintainability — not style.
+- NEVER flag issues in deleted lines (lines starting with `-`). Deleted code is \
+  being intentionally removed. Only review lines being added (lines starting with `+`).
 - Flag: hardcoded secrets or tokens, missing error handling, potential \
   null/index errors, SQL injection risks, blocking calls in async code, \
   N+1 query patterns, obvious logic bugs.
@@ -64,10 +66,21 @@ def build_review_prompt(diff: DiffResult, context: str | None = None) -> str:
         Optional free-text context the developer can pass (e.g. "This adds
         OAuth support for GitHub"). Helps the model give better feedback.
     """
-    parts: list[str] = [f"Changed files ({diff.file_count}): {', '.join(diff.files)}\n"
-                        f"Lines: +{diff.additions} / -{diff.deletions}"]
+    parts: list[str] = []
 
     # Stats header — gives the model a quick orientation
+    parts.append(
+        f"Changed files ({diff.file_count}): {', '.join(diff.files)}\n"
+        f"Lines: +{diff.additions} / -{diff.deletions}"
+    )
+
+    # If this is a pure deletion diff, tell the model explicitly
+    if diff.additions == 0 and diff.deletions > 0:
+        parts.append(
+            "Note: This diff contains only deletions (files being removed). "
+            "Do not flag issues in deleted code — it is being intentionally removed. "
+            "If the change looks clean, approve it."
+        )
 
     if context:
         parts.append(f"Developer note: {context}")
