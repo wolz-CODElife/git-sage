@@ -6,7 +6,7 @@ sidebar_position: 6
 
 # Contributing
 
-`git-sage` is open source and welcome contributions. The codebase is small and well-structured; most contributions touch a single module. Whether you're fixing a bug, adding a feature, or improving the docs, this guide has everything you need to get started.
+`git-sage` is open source and welcomes contributions. The codebase is small and well-structured; most contributions touch a single module. Whether you're fixing a bug, adding a feature, or improving the docs, this guide has everything you need to get started.
 
 ## Getting started
 
@@ -42,7 +42,7 @@ All 17 tests should pass before you start making changes.
 git_sage/
 ├── cli.py          CLI commands (Click)
 ├── diff.py         Git diff extraction
-├── prompt.py       Prompt builder — edit this to change review behaviour
+├── prompt.py       Prompt builder. Edit this to change review behaviour
 ├── ollama.py       Ollama HTTP client
 ├── parser.py       LLM response parser
 ├── output.py       Terminal renderer (Rich)
@@ -54,40 +54,13 @@ tests/
 docs/               Docusaurus documentation site
 ```
 
----
+:::info Good first issues
 
-## Good first issues
+We tag beginner-friendly issues on GitHub. These are self-contained improvements that don't require deep knowledge of the codebase.
 
-These are self-contained improvements that don't require deep knowledge of the codebase:
+[View good first issues →](https://github.com/wolz-CODElife/git-sage/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 
-### Add `--json` output flag
-
-Add a `--json` flag to `git-sage review` that outputs the `ReviewResult` as JSON instead of the rich terminal output. Useful for CI pipelines.
-
-```bash
-git-sage review --json
-# {"summary": "...", "issues": [...], "verdict": "REVISE"}
-```
-
-The `ReviewResult` dataclass in `parser.py` already has all the fields — it just needs a serialiser and a flag in `cli.py`.
-
-### Add `--severity` filter
-
-Add a `--severity` option to filter the issues shown:
-
-```bash
-git-sage review --severity high   # only show critical issues
-```
-
-This requires updating `SYSTEM_PROMPT` in `prompt.py` to ask the model to label each issue with a severity (`high`, `medium`, `low`), and updating `parser.py` to extract and store that label.
-
-### Support multiple models as fallback
-
-If the requested model isn't available locally, fall back to the next available model instead of exiting with an error.
-
-### Add a `--watch` mode
-
-A `--watch` flag that re-runs the review every time a staged file changes, using `watchfiles` or `polling`.
+:::
 
 ---
 
@@ -136,17 +109,73 @@ After adding a command, add a test in `tests/` and update the docs in `docs/docs
 
 1. Create a branch: `git checkout -b feat/my-feature`
 2. Make your changes
-3. Run `pytest tests/ -v` — all tests must pass
+3. Run `pytest tests/ -v`. All tests must pass
 4. Add or update tests for your change
-5. Open a pull request against `master` with a clear description of what you changed and why
+5. Open a pull request against `master` using the template below
+
+When opening your PR, use this description template:
+```markdown
+## What does this PR do?
+<!-- A short summary of the change and why it's needed -->
+
+## How to test it
+<!-- Steps to reproduce or verify the change locally -->
+\```bash
+# example commands
+\```
+
+## Checklist
+- [ ] Tests pass (`pytest tests/ -v`)
+- [ ] New tests added for this change
+- [ ] Docs updated if behaviour changed
+- [ ] No hardcoded secrets or debug output left in
+```
 
 ---
 
 ## Reporting bugs
 
-Open an issue at [github.com/wolz-CODElife/git-sage/issues](https://github.com/wolz-CODElife/git-sage/issues) with:
+Open an issue at [github.com/wolz-CODElife/git-sage/issues](https://github.com/wolz-CODElife/git-sage/issues). We have templates to help you include the right information, just pick the one that fits.
 
-- Your OS and Python version
-- The command you ran
-- The full error output
-- What you expected to happen
+### Bug report
+
+Use this when something isn't working as expected.
+```markdown
+## Describe the bug
+<!-- A clear description of what went wrong -->
+
+## Steps to reproduce
+1. 
+2. 
+3. 
+
+## Expected behaviour
+<!-- What you expected to happen -->
+
+## Actual behaviour
+<!-- What actually happened, including full error output -->
+
+## Environment
+- OS: <!-- e.g. macOS 14.5, Ubuntu 22.04 -->
+- Python version: <!-- e.g. 3.11.4 -->
+- git-sage version: <!-- run: git-sage --version -->
+- Ollama version: <!-- run: ollama --version -->
+- Model: <!-- e.g. qwen2.5-coder:7b -->
+```
+
+### Feature request
+
+Use this when you have an idea for something new.
+```markdown
+## What problem does this solve?
+<!-- Describe the gap or pain point -->
+
+## Proposed solution
+<!-- How you'd like it to work -->
+
+## Alternatives considered
+<!-- Any other approaches you thought about -->
+
+## Additional context
+<!-- Screenshots, links, examples -->
+```

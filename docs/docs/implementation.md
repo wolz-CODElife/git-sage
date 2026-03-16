@@ -10,7 +10,7 @@ This page walks through each module in detail: what it does, how it works, and w
 
 ---
 
-## `diff.py` — Git diff extraction
+## `diff.py` - Git diff extraction
 
 The entry point for every review. It runs `git diff --cached` as a subprocess and parses the output into a structured `DiffResult`.
 
@@ -21,15 +21,15 @@ def get_staged_diff() -> DiffResult:
 
 The `_run_diff` helper handles the subprocess call and extracts three things from the raw text:
 
-1. **Additions** — lines starting with `+` (excluding `+++` file headers)
-2. **Deletions** — lines starting with `-` (excluding `---` file headers)
-3. **Files** — parsed from `+++ b/` lines in the diff header
+1. **Additions** - lines starting with `+` (excluding `+++` file headers)
+2. **Deletions** - lines starting with `-` (excluding `---` file headers)
+3. **Files** - parsed from `+++ b/` lines in the diff header
 
 Three diff modes are supported: `staged` (default), `head` (last commit), and `branch` (current branch vs a base).
 
 ---
 
-## `prompt.py` — Prompt builder
+## `prompt.py` - Prompt builder
 
 Two functions matter here:
 
@@ -64,7 +64,7 @@ The structured output format is the most important part of the prompt. It's what
 
 ---
 
-## `ollama.py` — Local AI client
+## `ollama.py` - Local AI client
 
 A minimal `httpx` wrapper around Ollama's `/api/chat` endpoint.
 
@@ -81,14 +81,14 @@ def chat(messages, model, host, stream=False) -> str | Iterator[str]:
 
 Two utility functions support the CLI:
 
-- **`is_available(host)`** — pings `/api/tags` with a 3-second timeout to check if Ollama is running
-- **`list_models(host)`** — returns model names from `/api/tags` for `git-sage models`
+- **`is_available(host)`** - pings `/api/tags` with a 3-second timeout to check if Ollama is running
+- **`list_models(host)`** - returns model names from `/api/tags` for `git-sage models`
 
-Temperature is set to `0.2` — low enough for consistent, structured output, high enough to avoid repetitive phrasing across reviews.
+Temperature is set to `0.2` - low enough for consistent, structured output, high enough to avoid repetitive phrasing across reviews.
 
 ---
 
-## `parser.py` — Response parser
+## `parser.py` - Response parser
 
 The parser splits the model's response on the four section headings using a regex:
 
@@ -118,17 +118,17 @@ class Verdict(str, Enum):
     UNKNOWN = "UNKNOWN"   # model didn't follow instructions
 ```
 
-`UNKNOWN` is treated as a non-blocking result — the review is shown but the push is not aborted.
+`UNKNOWN` is treated as a non-blocking result; the review is shown but the push is not aborted.
 
 ---
 
-## `output.py` — Terminal renderer
+## `output.py` - Terminal renderer
 
 Uses the `Rich` library for coloured panels and formatted output. The key functions:
 
-**`print_review(result)`** — renders all four sections in sequence.
+**`print_review(result)`** - renders all four sections in sequence.
 
-**`thinking_spinner(label)`** — returns a `Rich` `Live` context manager that shows a spinner while Ollama is running:
+**`thinking_spinner(label)`** - returns a `Rich` `Live` context manager that shows a spinner while Ollama is running:
 
 ```python
 with output.thinking_spinner(f"Reviewing with {model}…"):
@@ -139,7 +139,7 @@ The spinner is `transient=True` so it disappears once the review is ready, leavi
 
 ---
 
-## `hook.py` — Git hook manager
+## `hook.py` - Git hook manager
 
 The hook script written to `.git/hooks/pre-push`:
 
@@ -151,11 +151,11 @@ git-sage review --hook
 
 The `# git-sage managed hook` comment is a marker used to detect whether the file was created by git-sage. This prevents the tool from overwriting a hook that was written by something else.
 
-Install and uninstall are idempotent — running `git-sage install` twice is safe.
+Install and uninstall are idempotent, running `git-sage install` twice is safe.
 
 ---
 
-## `cli.py` — Entry point
+## `cli.py` - Entry point
 
 Built with [Click](https://click.palletsprojects.com). The `review` command wires the full pipeline:
 
@@ -171,4 +171,4 @@ def review(model, host, context, hook, diff_mode, base, force):
     # 7. Exit 1 if hook mode + REVISE + not force
 ```
 
-The `--hook` flag is hidden from `--help` — it's an internal flag used only by the pre-push script.
+The `--hook` flag is hidden from `--help`, it's an internal flag used only by the pre-push script.

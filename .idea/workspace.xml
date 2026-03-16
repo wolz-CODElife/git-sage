@@ -5,46 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a9a7867-8b09-492c-81e4-8e618d2952eb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/deploy-docs.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/blog/2019-05-28-first-blog-post.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/blog/2019-05-29-long-blog-post.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/blog/2021-08-01-mdx-blog-post.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/blog/2021-08-26-welcome/docusaurus-plushie-banner.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/blog/2021-08-26-welcome/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/blog/authors.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/blog/tags.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/docs/architecture.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/docs/contributing.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/docs/implementation.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/docs/installation.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/docs/intro.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/docs/usage.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/docusaurus.config.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/sidebars.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/src/components/HomepageFeatures/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/src/components/HomepageFeatures/styles.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/src/css/custom.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/src/pages/index.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/src/pages/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/src/pages/markdown-page.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/static/.nojekyll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/static/img/docusaurus-social-card.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/static/img/docusaurus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/static/img/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/static/img/logo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/static/img/undraw_docusaurus_mountain.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/static/img/undraw_docusaurus_react.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/static/img/undraw_docusaurus_tree.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/git_sage/prompt.py" beforeDir="false" afterPath="$PROJECT_DIR$/git_sage/prompt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_bad_code.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/docs/architecture.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/docs/architecture.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/docs/contributing.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/docs/contributing.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/docs/implementation.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/docs/implementation.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +79,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1773511789388</updated>
-      <workItem from="1773511790427" duration="26909000" />
+      <workItem from="1773511790427" duration="29631000" />
     </task>
     <servers />
   </component>

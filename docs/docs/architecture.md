@@ -175,17 +175,17 @@ If your diff is too large, Ollama will return a truncated or degraded response. 
 - Use `--diff-mode branch` to review incrementally as you work rather than all at once
 - Break large features into smaller commits
 
-A future version of git-sage could automatically chunk large diffs and aggregate the results.
+A future version of `git-sage` could automatically chunk large diffs and aggregate the results.
 
 **Review quality depends on the model**
 
-The model flags what it can infer from the diff alone. It has no knowledge of your broader codebase — it can't see functions defined in other files, imported modules, or runtime behaviour. Issues that require cross-file context (e.g. a missing method defined elsewhere, or a race condition across two services) may not be caught.
+The model flags what it can infer from the diff alone. It has no knowledge of your broader codebase; it can't see functions defined in other files, imported modules, or runtime behaviour. Issues that require cross-file context (e.g. a missing method defined elsewhere, or a race condition across two services) may not be caught.
 
-Think of git-sage as a fast first pass, not a replacement for human review on critical code paths.
+Think of `git-sage` as a fast first pass, not a replacement for human review on critical code paths.
 
 **Structured output is not guaranteed**
 
-git-sage instructs the model to respond in a specific format (SUMMARY / ISSUES / SUGGESTIONS / VERDICT). Most of the time this works reliably with `qwen2.5-coder:7b`. Occasionally — especially with smaller or general-purpose models — the model may deviate from the format, resulting in an `UNKNOWN` verdict. The review is still shown, but the push is not aborted.
+`git-sage` instructs the model to respond in a specific format (SUMMARY / ISSUES / SUGGESTIONS / VERDICT). Most of the time this works reliably with `qwen2.5-coder:7b`. Occasionally, especially with smaller or general-purpose models, the model may deviate from the format, resulting in an `UNKNOWN` verdict. The review is still shown, but the push is not aborted.
 
 If you see frequent `UNKNOWN` verdicts, switch to a larger or more instruction-following model.
 
