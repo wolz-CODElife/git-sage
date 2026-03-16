@@ -70,6 +70,7 @@ const config: Config = {
             { label: "Getting Started", to: "/docs/" },
             { label: "Architecture", to: "/docs/architecture" },
             { label: "Contributing", to: "/docs/contributing" },
+          { label: "Changelog", href: "https://github.com/wolz-CODElife/git-sage/blob/master/CHANGELOG.md" },
           ],
         },
         {

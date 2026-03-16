@@ -7,7 +7,7 @@ const sidebars: SidebarsConfig = {
     'usage',
     'architecture',
     'implementation',
-    'contributing',
+    'contributing'
   ],
 };
 
