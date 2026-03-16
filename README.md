@@ -2,15 +2,14 @@
 
 > Local AI code review right before you push. No cloud. No subscriptions. No data leaving your machine.
 
-`git-sage` hooks into your git workflow and runs a code review using a locally hosted LLM via [Ollama](https://ollama.com). When you run `git push`, the tool intercepts it, sends your staged diff to the model, and either approves the push or asks you to revise.
-
+`git-sage` hooks into your git workflow and runs a code review using a locally hosted LLM via [Ollama](https://ollama.com). When you run `git push`, the tool intercepts it, sends your staged diff to the model, and either approves the push or asks you to revise, all on your machine, in seconds.
 ```
 $ git push
 
   Staged: 3 file(s)  +47 / -12
 
   ╭─ Summary ───────────────────────────────────────────────────────────╮
-  │ Adds a /login endpoint with bcrypt password hashing.               │
+  │ Adds a /login endpoint with bcrypt password hashing.                │
   ╰─────────────────────────────────────────────────────────────────────╯
 
   Issues  (2 found)
@@ -24,91 +23,81 @@ $ git push
 
   ╭─────────────────────────────────────────────────────────────────────╮
   │  ✗  REVISE                                                          │
-  │  Address the issues above before pushing.                          │
+  │  Address the issues above before pushing.                           │
   ╰─────────────────────────────────────────────────────────────────────╯
 
   Push aborted by git-sage. Fix the issues above, or run:
     git push --no-verify   to bypass the hook.
 ```
 
+📖 **[Full documentation →](https://wolz-codelife.github.io/git-sage/)**
+
+---
+
+## Why git-sage?
+
+Most AI code review tools sit at the pull request stage, by then your code has already reached a remote server. A hardcoded secret has already been pushed. A vulnerable dependency is already on a branch other developers may have pulled.
+
+`git-sage` moves the review to your local machine, before any code leaves it. If the model finds a problem, the push is aborted and you fix it right there in your editor.
+
 ---
 
 ## Requirements
 
 - Python 3.9+
-- [Ollama](https://ollama.com) installed and running (`ollama serve`)
-- The `qwen2.5-coder:7b` model pulled locally (see Setup below)
+- [Ollama](https://ollama.com) installed and running
+- macOS, Linux, or Windows (WSL2)
+- ~5 GB disk space for the default model
 
-No GPU required. The recommended model runs comfortably on 8 GB RAM.
+No GPU required. Runs on any modern laptop.
 
 ---
 
-## Setup
+## Quick start
 
-**1. Install Ollama**
-
-Download from [ollama.com](https://ollama.com) and start the server:
-
+**1. Install Ollama and pull the model**
 ```bash
+brew install ollama      # macOS — see docs for Linux/Windows
 ollama serve
-```
-
-**2. Pull the model**
-
-```bash
 ollama pull qwen2.5-coder:7b
 ```
 
-> **Why `qwen2.5-coder:7b`?**
-> It's a code-specialized model that understands unified diffs natively,
-> outperforms general-purpose 7B models on code tasks, and runs in ~4.5 GB
-> of RAM at Q4 quantization. It's the best code-focused model available
-> at the 7B size tier as of early 2025.
-
-**3. Install git-sage**
-
+**2. Install git-sage**
 ```bash
 pip install git-sage
 ```
 
-Or from source:
-
-```bash
-git clone https://github.com/yourname/git-sage
-cd git-sage
-pip install -e .
-```
-
-**4. Install the pre-push hook in your repo**
-
+**3. Install the hook in your repo**
 ```bash
 cd your-project
 git-sage install
 ```
 
-That's it. The next `git push` will trigger a review.
+**4. Push as normal**
+```bash
+git push   # review runs automatically
+```
 
 ---
 
 ## Commands
 
-| Command | Description |
-|---|---|
-| `git-sage review` | Manually review staged changes |
-| `git-sage review --model llama3.2` | Use a different local model |
-| `git-sage review --context "Adds OAuth"` | Provide context to the model |
-| `git-sage review --diff-mode head` | Review the last commit instead |
-| `git-sage review --diff-mode branch --base main` | Review the whole branch |
-| `git-sage review --force` | Review but don't abort push on REVISE |
-| `git-sage install` | Install the pre-push hook |
-| `git-sage uninstall` | Remove the pre-push hook |
-| `git-sage status` | Check Ollama availability and hook status |
-| `git-sage models` | List locally available models |
+| Command                                            | Description                               |
+|----------------------------------------------------|-------------------------------------------|
+| `git-sage review`                                  | Manually review staged changes            |
+| `git-sage review --model llama3.2`                 | Use a different local model               |
+| `git-sage review --context "Adds OAuth"`           | Provide context to the model              |
+| `git-sage review --diff-mode head`                 | Review the last commit instead            |
+| `git-sage review --diff-mode branch --base main`   | Review the whole branch                   |
+| `git-sage review --force`                          | Review but don't abort push on REVISE     |
+| `git-sage install`                                 | Install the pre-push hook                 |
+| `git-sage uninstall`                               | Remove the pre-push hook                  |
+| `git-sage status`                                  | Check Ollama availability and hook status |
+| `git-sage models`                                  | List locally available Ollama models      |
 
 ---
 
 ## How it works
-
 ```
 git push
   → .git/hooks/pre-push fires
@@ -121,58 +110,18 @@ git push
       → exit 0 (APPROVE) or exit 1 (REVISE, aborts push)
 ```
 
-See [docs/architecture.md](docs/architecture.md) for a full walkthrough.
+For a full breakdown of the architecture and each module, see the **[Architecture docs](https://wolz-codelife.github.io/git-sage/docs/architecture)**.
 
 ---
 
 ## Bypassing the hook
-
-If you need to push without a review (e.g. a hotfix):
-
 ```bash
 git push --no-verify
 ```
 
 ---
 
-## Extending git-sage
-
-**Add a custom rule to the system prompt**
-
-Edit `git_sage/prompt.py` and add your rule to the `SYSTEM_PROMPT` string.
-For example, to flag any print statement:
-
-```
-- Flag any print() or console.log() calls left in production code paths.
-```
-
-**Use a different model**
-
-```bash
-ollama pull codellama:13b
-git-sage review --model codellama:13b
-```
-
-**Output JSON for CI pipelines**
-
-Currently the output is human-readable only. A `--json` flag is a natural
-extension — see [docs/extending.md](docs/extending.md).
-
----
-
-## Running tests
-
-```bash
-pip install pytest
-pytest tests/ -v
-```
-
-Tests are self-contained and don't require Ollama or a git repo.
-
----
-
 ## Project structure
-
 ```
 git_sage/
   cli.py       CLI entrypoint (click)
@@ -186,7 +135,25 @@ tests/
   test_parser.py
   test_diff.py
   test_prompt.py
+docs/              Docusaurus documentation site
+CHANGELOG.md       Version history
 ```
+
+---
+
+## Running tests
+```bash
+pip install pytest
+pytest tests/ -v
+```
+
+Tests are self-contained; no Ollama or git repo needed.
+
+---
+
+## Contributing
+
+Contributions are welcome. See the **[Contributing guide](https://wolz-codelife.github.io/git-sage/docs/contributing)** for how to get started, issue templates, and a PR template.
 
 ---
 
